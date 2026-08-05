@@ -5,7 +5,7 @@ if(isset($_GET['id']))
 {
     $id = $_GET['id'];
 
-    $sql = "UPDATE reg
+    $sql = "UPDATE reg2
             SET status='Rejected'
             WHERE id='$id'";
 

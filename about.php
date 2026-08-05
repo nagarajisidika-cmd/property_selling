@@ -1422,10 +1422,6 @@ transparent property experience.
 
 
 
-
-
-
-
 </div>
 
 
@@ -1433,16 +1429,6 @@ transparent property experience.
 
 
 </section>
-
-
-
-
-
-
-
-
-
-<!-- PART 3 CSS -->
 
 
 <style>

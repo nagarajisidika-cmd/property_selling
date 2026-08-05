@@ -1,34 +1,36 @@
-
 <?php
 include "connection.php";
 
 if(isset($_POST['verify']))
 {
-    $username = trim($_POST['username']);
-    $otp      = trim($_POST['otp']);
+    $username = $_POST['username'];
+    $otp      = $_POST['otp'];
 
     $sql = "SELECT * FROM reg2
             WHERE username='$username'
-            AND otp='$otp'";
+            AND otp='$otp'
+            AND status='Approved'";
 
     $result = mysqli_query($conn,$sql);
 
-    if($result && mysqli_num_rows($result) > 0)
+    if(mysqli_num_rows($result) > 0)
     {
-        mysqli_query($conn,
-        "UPDATE reg2
-         SET verify_status='Verified'
-         WHERE username='$username'");
+        mysqli_query($conn,"
+        UPDATE reg2
+        SET verify_status='Verified'
+        WHERE username='$username'
+        ");
 
         echo "<script>
         alert('OTP Verified Successfully');
         window.location='login2.php';
         </script>";
-        exit();
     }
     else
     {
-        echo "<script>alert('Invalid OTP');</script>";
+        echo "<script>
+        alert('Invalid OTP');
+        </script>";
     }
 }
 ?>
@@ -36,8 +38,7 @@ if(isset($_POST['verify']))
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Customer OTP Verification</title>
+<title>OTP Verification</title>
 
 <style>
 
@@ -53,111 +54,100 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    background:
+    linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600');
+    background-size:cover;
+    background-position:center;
 }
 
-.container{
+.verify-box{
     width:420px;
-    background:white;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
     padding:35px;
     border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
-.logo{
+.verify-box h2{
     text-align:center;
-    font-size:60px;
-    margin-bottom:10px;
-}
-
-h2{
-    text-align:center;
-    color:#1e3c72;
+    color:white;
     margin-bottom:25px;
+    font-size:30px;
 }
 
-.input-box{
-    margin-bottom:18px;
-}
-
-.input-box input{
+input[type="text"]{
     width:100%;
     padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    outline:none;
     font-size:15px;
 }
 
-.input-box input:focus{
-    outline:none;
-    border-color:#2563eb;
-    box-shadow:0 0 8px rgba(37,99,235,0.3);
-}
-
-.btn{
+input[type="submit"]{
     width:100%;
-    padding:13px;
-    border:none;
-    border-radius:8px;
-    background:#16a34a;
+    padding:12px;
+    margin-top:15px;
+    background:#009688;
     color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
     font-size:16px;
     font-weight:bold;
-    cursor:pointer;
+    transition:0.3s;
 }
 
-.btn:hover{
-    background:#15803d;
+input[type="submit"]:hover{
+    background:#00695c;
+    transform:scale(1.03);
 }
 
-.footer{
+.info{
     text-align:center;
+    color:white;
     margin-top:15px;
-    color:#64748b;
     font-size:14px;
 }
 
 </style>
 
 </head>
-
 <body>
 
-<div class="container">
-
-<div class="logo">🔐</div>
-
-<h2>OTP Verification</h2>
+<div class="verify-box">
 
 <form method="post">
 
-<div class="input-box">
-<input type="text"
+<h2>OTP Verification</h2>
+
+<input
+type="text"
 name="username"
 placeholder="Enter Username"
 required>
-</div>
 
-<div class="input-box">
-<input type="text"
+<input
+type="text"
 name="otp"
 placeholder="Enter OTP"
 required>
-</div>
 
-<input type="submit"
+<input
+type="submit"
 name="verify"
-value="Verify OTP"
-class="btn">
+value="Verify OTP">
+
+<div class="info">
+Enter the OTP generated after admin approval
+</div>
 
 </form>
-
-<div class="footer">
-Property Buying & Selling Portal
-</div>
 
 </div>
 
 </body>
 </html>
-

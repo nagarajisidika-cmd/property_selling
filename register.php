@@ -50,7 +50,7 @@ if(isset($_POST['register']))
 <!DOCTYPE html>
 <html>
 <head>
-<title>Customer Registration</title>
+<title>Seller Registration</title>
 
 <style>
 

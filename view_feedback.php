@@ -1,8 +1,7 @@
-
 <?php
 include "connection.php";
 
-$sql = "SELECT * FROM feedback ORDER BY feedback_id DESC";
+$sql = "select * from feedback ORDER BY feedback_id DESC";
 
 $result = mysqli_query($conn, $sql);
 
@@ -14,7 +13,6 @@ if(!$result)
 $total_feedback = mysqli_num_rows($result);
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -34,11 +32,30 @@ body{
     padding:30px;
 }
 
-h2{
+.header{
     text-align:center;
-    color:#1e3c72;
     margin-bottom:20px;
+}
+
+.header h2{
+    color:#1e3c72;
     font-size:32px;
+    margin-bottom:15px;
+}
+
+.back-btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
 }
 
 .total{
@@ -108,12 +125,17 @@ tr:hover{
 
 @media(max-width:768px)
 {
-    h2{
+    .header h2{
         font-size:24px;
     }
 
     th,td{
         padding:8px;
+        font-size:14px;
+    }
+
+    .back-btn{
+        padding:8px 15px;
         font-size:14px;
     }
 }
@@ -123,10 +145,19 @@ tr:hover{
 </head>
 <body>
 
-<h2>Buyer Feedback List</h2>
+<div class="header">
+
+    <h2>Buyer Feedback List</h2>
+
+    <a href="admin.php" class="back-btn">
+	<img src="icons/back.png" alt=""width=10>
+        Back to Admin Panel
+    </a>
+
+</div>
 
 <div class="total">
-Total Feedback : <?php echo $total_feedback; ?>
+    Total Feedback : <?php echo $total_feedback; ?>
 </div>
 
 <div class="table-container">
@@ -151,21 +182,18 @@ if($total_feedback > 0)
 
 <tr>
 
-    <td>
-        <?php echo $row['feedback_id']; ?>
-    </td>
+    <td><?php echo $row['feedback_id']; ?></td>
 
-    <td>
-        <?php echo $row['buyer_name']; ?>
-    </td>
+    <td><?php echo $row['buyer_name']; ?></td>
 
-    <td>
-        <?php echo $row['property_name']; ?>
-    </td>
+    <td><?php echo $row['property_name']; ?></td>
 
     <td class="rating">
-        ⭐ <?php echo $row['rating']; ?>
+	 
+        <img src="icons/star.png" alt="" width=100 >
+        <?php echo $row['rating']; ?>
     </td>
+	 
 
     <td class="feedback-box">
         <?php echo $row['feedback']; ?>
@@ -181,9 +209,9 @@ else
 ?>
 
 <tr>
-<td colspan="5" class="no-data">
-No Feedback Available
-</td>
+    <td colspan="5" class="no-data">
+        No Feedback Available
+    </td>
 </tr>
 
 <?php

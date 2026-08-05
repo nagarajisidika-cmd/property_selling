@@ -4,13 +4,16 @@ include "connection.php";
 
 $result = mysqli_query($conn,
 "SELECT * FROM property_likes
-ORDER BY like_id DESC");
+ ORDER BY like_id DESC");
+
+$total_likes = mysqli_num_rows($result);
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Property Likes</title>
+<meta charset="UTF-8">
+<title>Liked Properties</title>
 
 <style>
 
@@ -18,7 +21,7 @@ ORDER BY like_id DESC");
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
@@ -34,9 +37,36 @@ body{
     font-weight:bold;
 }
 
+.top-bar{
+    width:90%;
+    margin:20px auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.back-btn{
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
+}
+
+.total{
+    font-size:20px;
+    font-weight:bold;
+    color:#0f766e;
+}
+
 .container{
     width:90%;
-    margin:30px auto;
+    margin:20px auto;
 }
 
 .card{
@@ -77,6 +107,28 @@ body{
     color:red;
     margin-top:50px;
 }
+.header-icon{
+    width:35px;
+    height:35px;
+    vertical-align:middle;
+    margin-right:8px;
+}
+
+@media(max-width:768px){
+
+    .top-bar{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .header{
+        font-size:24px;
+    }
+
+    .card p{
+        font-size:15px;
+    }
+}
 
 </style>
 
@@ -84,13 +136,27 @@ body{
 <body>
 
 <div class="header">
-❤️ Property Likes
+<img src="icons/like.png" alt="" class="header-icon">
+ Property Likes
+</div>
+
+<div class="top-bar">
+
+    <a href="admin.php" class="back-btn">
+	<img src="icons/back.png" alt="" width=10>
+        Back
+    </a>
+
+    <div class="total">
+        Total Likes : <?php echo $total_likes; ?>
+    </div>
+
 </div>
 
 <div class="container">
 
 <?php
-if(mysqli_num_rows($result)>0)
+if($total_likes > 0)
 {
     while($row=mysqli_fetch_assoc($result))
     {
@@ -99,7 +165,7 @@ if(mysqli_num_rows($result)>0)
 <div class="card">
 
 <p>
-<span class="like-icon">❤️</span>
+<span class="like-icon"><img src="icons/like.png" alt="" class="header-icon"></span>
 <b>Property :</b>
 <?php echo $row['property_name']; ?>
 </p>
@@ -126,7 +192,11 @@ if(mysqli_num_rows($result)>0)
 }
 else
 {
-    echo "<div class='no-data'>No Likes Found</div>";
+?>
+<div class="no-data">
+    No Likes Found
+</div>
+<?php
 }
 ?>
 

@@ -5,17 +5,13 @@ if(isset($_GET['id']))
 {
     $id = intval($_GET['id']);
 
-    $otp = rand(100000,999999);
-
     mysqli_query($conn,"
     UPDATE reg2
-    SET status='Approved',
-        otp='$otp',
-        verify_status='Not Verified'
+    SET status='Rejected'
     WHERE id='$id'");
 
     echo "<script>
-    alert('Customer Approved. OTP Generated: $otp');
+    alert('Customer Rejected');
     window.location='admin_customer.php';
     </script>";
 }

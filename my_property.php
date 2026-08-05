@@ -163,6 +163,22 @@ h2{
 .delete:hover{
     background:#b91c1c;
 }
+.location-icon{
+    width:10px ;
+    height:10px ;
+    max-width:15px;
+    max-height:15px;
+    vertical-align:middle;
+    margin-right:3px;
+}
+.call-icon{
+    width:10px ;
+    height:10px ;
+    max-width:15px;
+    max-height:15px;
+    vertical-align:middle;
+    margin-right:3px;
+}
 
 </style>
 
@@ -195,17 +211,19 @@ while($row=mysqli_fetch_assoc($result))
             <?php echo $row['property_type']; ?>
         </div>
 
-        <div class="info">
-            📍 Location : <?php echo $row['location']; ?>
-        </div>
+      <div class="location">
+<img src="icons/lo.png" class="location-icon">
+<?php echo $row['location']; ?>
+</div>
 
         <div class="price">
             ₹<?php echo $row['price']; ?>
         </div>
 
-        <div class="info">
-            📞 Contact : <?php echo $row['contact']; ?>
-        </div>
+       <div class="contact">
+<img src="icons/call.png" class="call-icon">
+ <?php echo $row['contact']; ?>
+</div> 
 
         <div class="description">
             <?php echo $row['description']; ?>

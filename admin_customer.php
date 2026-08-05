@@ -4,13 +4,8 @@ include "connection.php";
 
 $result = mysqli_query($conn,"
 SELECT * FROM reg2
-WHERE verify_status='Verified'
-AND status='Pending'");
-
-if(!$result)
-{
-    die("Query Error : ".mysqli_error($conn));
-}
+WHERE status='Pending'
+ORDER BY id DESC");
 
 $total = mysqli_num_rows($result);
 ?>
@@ -43,6 +38,22 @@ body{
 .header h1{
     color:#1e3c72;
     font-size:32px;
+    margin-bottom:15px;
+}
+
+.back-btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
 }
 
 .total{
@@ -99,10 +110,25 @@ tr:hover{
     padding:10px 18px;
     border-radius:8px;
     font-weight:bold;
+    margin-right:5px;
 }
 
 .approve-btn:hover{
     background:#15803d;
+}
+
+.reject-btn{
+    display:inline-block;
+    background:red;
+    color:white;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.reject-btn:hover{
+    background:#b91c1c;
 }
 
 .no-data{
@@ -122,6 +148,12 @@ tr:hover{
         padding:8px;
         font-size:14px;
     }
+
+    .approve-btn,
+    .reject-btn{
+        padding:8px 12px;
+        font-size:12px;
+    }
 }
 
 </style>
@@ -131,6 +163,10 @@ tr:hover{
 
 <div class="header">
     <h1>Pending Customer Requests</h1>
+
+    <a href="admin.php" class="back-btn">
+        ← Back to Admin Panel
+    </a>
 </div>
 
 <div class="total">
@@ -151,7 +187,7 @@ tr:hover{
 <?php
 if($total > 0)
 {
-    while($row=mysqli_fetch_assoc($result))
+    while($row = mysqli_fetch_assoc($result))
     {
 ?>
 <tr>
@@ -163,10 +199,18 @@ if($total > 0)
     <td><?php echo $row['email']; ?></td>
 
     <td>
+
         <a class="approve-btn"
         href="approve_customer.php?id=<?php echo $row['id']; ?>">
         Approve
         </a>
+
+        <a class="reject-btn"
+        href="reject_customer.php?id=<?php echo $row['id']; ?>"
+        onclick="return confirm('Are you sure you want to reject this customer?')">
+        Reject
+        </a>
+
     </td>
 
 </tr>

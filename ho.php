@@ -204,8 +204,8 @@ footer{
 
     <div class="menu">
         <a href="home.php">HOME</a>
-        <a href="about.php">ABOUT</a>
-        <a href="contact.php">CONTACT</a>
+        <a href="about us.php">ABOUT</a>
+        <a href="CONTACT.php">CONTACT</a>
 		<a href="view_feedback.php">FEEDBACK</a>
     </div>
 

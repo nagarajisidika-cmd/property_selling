@@ -109,6 +109,28 @@ body{
     font-size:13px;
     margin-bottom:10px;
 }
+.location-icon{
+    width:16px !important;
+    height:16px !important;
+    object-fit:contain;
+    vertical-align:middle;
+    margin-right:5px;
+}
+.call-icon{
+    width:16px !important;
+    height:16px !important;
+    object-fit:contain;
+    vertical-align:middle;
+    margin-right:5px;
+}
+.rupee-icon{
+    width:16px !important;
+    height:16px !important;
+    object-fit:contain;
+    vertical-align:middle;
+    margin-right:5px;
+}
+
 
 </style>
 
@@ -139,17 +161,20 @@ while($row=mysqli_fetch_assoc($result))
 
         <h3><?php echo $row['property_type']; ?></h3>
 
-        <p class="info">
-            📍 <?php echo $row['location']; ?>
-        </p>
+<p class="info">
+    <img src="icons/lo.png" class="location-icon" alt="Location">
+    <?php echo $row['location']; ?>
+</p>
 
         <p class="price">
-            ₹<?php echo $row['price']; ?>
+		<img src="icons/rupee.png" alt="ruee" class="rupee-icon">
+            <?php echo $row['price']; ?>
         </p>
 
-        <p class="info">
-            📞 <?php echo $row['contact']; ?>
-        </p>
+       <p class="info">
+    <img src="icons/call.png" class="call-icon" alt="Call">
+    <?php echo $row['contact']; ?>
+</p>
 
         <p class="desc">
             <?php echo $row['description']; ?>

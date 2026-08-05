@@ -5,11 +5,11 @@ $sql = "SELECT * FROM reg";
 $result = mysqli_query($conn,$sql);
 ?>
 
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Admin Dashboard</title>
-
-
 
 <style>
 
@@ -26,16 +26,40 @@ body{
     padding:30px;
 }
 
-h2{
+.header{
     text-align:center;
-    color:white;
-    font-size:35px;
     margin-bottom:25px;
 }
 
-table{
+.header h2{
+    color:white;
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.back-btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
+}
+
+.table-container{
     width:95%;
     margin:auto;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
     border-collapse:collapse;
     background:white;
     border-radius:15px;
@@ -64,6 +88,7 @@ tr:hover{
 }
 
 .approve{
+    display:inline-block;
     background:green;
     color:white;
     padding:8px 15px;
@@ -73,6 +98,7 @@ tr:hover{
 }
 
 .reject{
+    display:inline-block;
     background:red;
     color:white;
     padding:8px 15px;
@@ -103,23 +129,51 @@ tr:hover{
     font-weight:bold;
 }
 
+@media(max-width:768px){
+
+    .header h2{
+        font-size:26px;
+    }
+
+    th,td{
+        font-size:13px;
+        padding:8px;
+    }
+
+    .approve,
+    .reject{
+        padding:6px 10px;
+        font-size:12px;
+    }
+}
+
 </style>
 
 </head>
 <body>
 
-<h2>User Approval Dashboard</h2>
+<div class="header">
+
+    <h2>User Approval Dashboard</h2>
+
+    <a href="admin.php" class="back-btn">
+        ← Back to Admin Panel
+    </a>
+
+</div>
+
+<div class="table-container">
 
 <table>
 
 <tr>
-<th>ID</th>
-<th>Name</th>
-<th>Mobile</th>
-<th>Email</th>
-<th>Username</th>
-<th>Status</th>
-<th>Action</th>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Mobile</th>
+    <th>Email</th>
+    <th>Username</th>
+    <th>Status</th>
+    <th>Action</th>
 </tr>
 
 <?php
@@ -129,62 +183,62 @@ while($row=mysqli_fetch_assoc($result))
 
 <tr>
 
-<td><?php echo $row['id']; ?></td>
-<td><?php echo $row['name']; ?></td>
-<td><?php echo $row['mobile']; ?></td>
-<td><?php echo $row['email']; ?></td>
-<td><?php echo $row['username']; ?></td>
+    <td><?php echo $row['id']; ?></td>
+    <td><?php echo $row['name']; ?></td>
+    <td><?php echo $row['mobile']; ?></td>
+    <td><?php echo $row['email']; ?></td>
+    <td><?php echo $row['username']; ?></td>
 
-<td>
+    <td>
 
-<?php
+    <?php
 
-$status = trim($row['status']);
+    $status = trim($row['status']);
 
-if($status=="Approved")
-{
-    echo "<span class='approved'>Approved</span>";
-}
-elseif($status=="Rejected")
-{
-    echo "<span class='rejected'>Rejected</span>";
-}
-else
-{
-    echo "<span class='pending'>Pending</span>";
-}
+    if($status=="Approved")
+    {
+        echo "<span class='approved'>Approved</span>";
+    }
+    elseif($status=="Rejected")
+    {
+        echo "<span class='rejected'>Rejected</span>";
+    }
+    else
+    {
+        echo "<span class='pending'>Pending</span>";
+    }
 
-?>
+    ?>
 
-</td>
+    </td>
 
-<td>
+    <td>
 
-<?php
-if($status=="Pending")
-{
-?>
+    <?php
+    if($status=="Pending")
+    {
+    ?>
 
-<a class="approve"
-href="approve.php?id=<?php echo $row['id']; ?>">
-Approve
-</a>
+    <a class="approve"
+    href="approve.php?id=<?php echo $row['id']; ?>">
+    Approve
+    </a>
 
-<a class="reject"
-href="reject.php?id=<?php echo $row['id']; ?>"
-onclick="return confirm('Are you sure?');">
-Reject
-</a>
+    <a class="reject"
+    href="reject.php?id=<?php echo $row['id']; ?>"
+    onclick="return confirm('Are you sure you want to reject this user?');">
+    Reject
+    </a>
 
-<?php
-}
-else
-{
-    echo "-";
-}
-?>
+    <?php
+    }
+    else
+    {
+        echo "-";
+    }
+    ?>
 
-</td>
+    </td>
 
 </tr>
 
@@ -193,6 +247,8 @@ else
 ?>
 
 </table>
+
+</div>
 
 </body>
 </html>

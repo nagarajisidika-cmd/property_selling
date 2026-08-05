@@ -27,6 +27,7 @@ $total_rejected = mysqli_num_rows($rj);
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Admin Panel</title>
 
 <style>
@@ -62,10 +63,13 @@ body{
     position:fixed;
     top:70px;
     left:0;
+    overflow-y:auto;
 }
 
 .sidebar a{
-    display:block;
+    display:flex;
+    align-items:center;
+    gap:12px;
     color:white;
     text-decoration:none;
     padding:15px 20px;
@@ -75,6 +79,11 @@ body{
 
 .sidebar a:hover{
     background:#0f766e;
+}
+
+.sidebar img{
+    width:22px;
+    height:22px;
 }
 
 .content{
@@ -122,6 +131,26 @@ body{
 
 .welcome h2{
     color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+@media(max-width:768px)
+{
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+        top:0;
+    }
+
+    .content{
+        margin-left:0;
+        margin-top:20px;
+    }
+
+    .header{
+        position:relative;
+    }
 }
 
 </style>
@@ -135,16 +164,55 @@ body{
 
 <div class="sidebar">
 
-    <a href="admin.php">🏠 Dashboard</a>
-    <a href="vi.php">🏡 View Property</a>
-    <a href="pendding.php">⏳ Pending Property</a>
-    <a href="allapprove.php">✅ Approved Property</a>
-    <a href="allreject.php">❌ Rejected Property</a>
-    <a href="user.php">👥 Users</a>
-    <a href="admin_customer.php">🛒 Buyer Request</a>
-    <a href="dash.php">📋 Seller Request</a>
-    <a href="view_feedback.php">💬 Feedback</a>
-    <a href="logout.php">🚪 Logout</a>
+    <a href="admin.php">
+        <img src="icons/dashboard.png" alt="">
+        Dashboard
+    </a>
+
+    <a href="vi.php">
+        <img src="icons/property.png" alt="">
+        View Property
+    </a>
+
+    <a href="pendding.php">
+        <img src="icons/pending.png" alt="">
+        Pending Property
+    </a>
+
+    <a href="allapprove.php">
+        <img src="icons/ap.png" alt="">
+        Approved Property
+    </a>
+
+    <a href="allreject.php">
+        <img src="icons/rejected.png" alt="">
+        Rejected Property
+    </a>
+
+    <a href="user.php">
+        <img src="icons/users.png" alt="">
+        Users
+    </a>
+
+    <a href="admin_customer.php">
+        <img src="icons/buyer.png" alt="">
+        Buyer Request
+    </a>
+
+    <a href="dash.php">
+        <img src="icons/seller.png" alt="">
+        Seller Request
+    </a>
+
+    <a href="view_feedback.php">
+        <img src="icons/feedback.png" alt="">
+        Feedback
+    </a>
+
+    <a href="logout.php">
+        <img src="icons/logout.png" alt="">
+        Logout
+    </a>
 
 </div>
 
@@ -152,7 +220,9 @@ body{
 
 <div class="welcome">
     <h2>Welcome Admin</h2>
-    <p>Manage properties, users, approvals and requests from this dashboard.</p>
+    <p>
+        Manage properties, users, approvals and requests from this dashboard.
+    </p>
 </div>
 
 <div class="dashboard">
